@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background: linear-gradient(to right, #2193b0, #6dd5ed);
+        }
+        /* Center the form horizontally */
+        .centered-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px; /* Adjust the height as needed */
+        }
+        
+        /* Style the form container */
+        .form-container {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 100, 0, 0.2);
+        }
+        
+        /* Style form fields */
+        .form-field {
+            margin-bottom: 10px;
+        }
+        
+        /* Style the submit button */
+        .submit-button {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="centered-form">
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data" id="upload-form">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</div>
+<script>
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        fetch('', {
+            method: 'POST',
+            body: new FormData(event.target)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                // console.log('0983882')
+                alert(data.error);
+            } else {
+                // console.log('4566666')
+                // const interval = 5000;
+                // setTimeout(() => {
+                //     alert('Upload Successful');
+                //     location.reload();
+                // }, interval);
+            }
+            
+        })
+        .then(location.reload())
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    document.getElementById('upload-form').addEventListener('submit', handleFormSubmit);
+
+</script>
+</body>
+</html>
